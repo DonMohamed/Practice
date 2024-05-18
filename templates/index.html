@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ToDo App List</title>
+    <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+    <style>
+        .remove-task {
+            cursor: pointer;
+            /* Change cursor to pointer when hovering over the X button */
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <h1 class="text-center mb-4">ToDo App</h1>
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" id="taskInput" placeholder="Enter a new task">
+                    <div class="input-group-append">
+                        <button class="btn btn-primary m-2" id="addTaskBtn">Add Task</button>
+                        <button class="btn btn-danger m-2" id="clearTasksBtn">Clear All</button>
+                        <!-- New clear button -->
+                    </div>
+                </div>
+                <ul class="list-group" id="taskList">
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/js/bootstrap.min.js"></script>
+    <script src="app.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const taskInput = document.getElementById('taskInput');
+            const addTaskBtn = document.getElementById('addTaskBtn');
+            const clearTasksBtn = document.getElementById('clearTasksBtn'); // Reference to clear button
+            const taskList = document.getElementById('taskList');
+
+            addTaskBtn.addEventListener('click', function () {
+                const taskText = taskInput.value.trim();
+                if (taskText !== '') {
+                    const li = document.createElement('li');
+                    li.classList.add('list-group-item', 'd-flex', 'justify-content-between', 'align-items-center');
+                    li.textContent = taskText;
+                    const span = document.createElement('span'); // Create span for remove icon
+                    span.classList.add('remove-task');
+                    span.innerHTML = '&#10006;'; // X icon
+                    li.appendChild(span);
+                    taskList.appendChild(li);
+                    taskInput.value = '';
+                }
+            });
+
+            clearTasksBtn.addEventListener('click', function () {
+                taskList.innerHTML = ''; // Clear all list items
+            });
+
+            // Event delegation for remove icon clicks
+            taskList.addEventListener('click', function (event) {
+                if (event.target.classList.contains('remove-task')) {
+                    event.target.parentElement.remove(); // Remove parent li element
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
