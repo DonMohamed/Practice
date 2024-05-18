@@ -7,9 +7,11 @@
     <title>ToDo App List</title>
     <link rel="stylesheet" href="/static/css/bootstrap.min.css">
     <style>
-        .remove-task {
+        .remove-task,
+        .edit-task {
             cursor: pointer;
             /* Change cursor to pointer when hovering over the X button */
+            margin-left: 10px;
         }
     </style>
 </head>
@@ -46,14 +48,7 @@
             addTaskBtn.addEventListener('click', function () {
                 const taskText = taskInput.value.trim();
                 if (taskText !== '') {
-                    const li = document.createElement('li');
-                    li.classList.add('list-group-item', 'd-flex', 'justify-content-between', 'align-items-center');
-                    li.textContent = taskText;
-                    const span = document.createElement('span'); // Create span for remove icon
-                    span.classList.add('remove-task');
-                    span.innerHTML = '&#10006;'; // X icon
-                    li.appendChild(span);
-                    taskList.appendChild(li);
+                    addTask(taskText);
                     taskInput.value = '';
                 }
             });
@@ -62,12 +57,72 @@
                 taskList.innerHTML = ''; // Clear all list items
             });
 
-            // Event delegation for remove icon clicks
+            // Event delegation for task list actions
             taskList.addEventListener('click', function (event) {
                 if (event.target.classList.contains('remove-task')) {
-                    event.target.parentElement.remove(); // Remove parent li element
+                    event.target.parentElement.parentElement.remove(); // Remove parent li element
+                } else if (event.target.classList.contains('edit-task')) {
+                    const li = event.target.parentElement.parentElement;
+                    const spanTaskText = li.querySelector('.task-text');
+                    const originalText = spanTaskText.textContent.trim();
+
+                    // Create an input element for editing
+                    const input = document.createElement('input');
+                    input.type = 'text';
+                    input.value = originalText;
+                    input.classList.add('form-control');
+
+                    // Replace span with input
+                    li.replaceChild(input, spanTaskText);
+                    input.focus();
+
+                    // Handle saving the edited task
+                    input.addEventListener('blur', function () {
+                        saveEdit(input, li);
+                    });
+
+                    input.addEventListener('keypress', function (event) {
+                        if (event.key === 'Enter') {
+                            saveEdit(input, li);
+                        }
+                    });
                 }
             });
+
+            function saveEdit(input, li) {
+                const updatedTaskText = input.value.trim();
+                const spanTaskText = document.createElement('span');
+                spanTaskText.textContent = updatedTaskText;
+                spanTaskText.classList.add('task-text');
+
+                // Replace input with span
+                li.replaceChild(spanTaskText, input);
+            }
+
+            function addTask(taskText) {
+                const li = document.createElement('li');
+                li.classList.add('list-group-item', 'd-flex', 'justify-content-between', 'align-items-center');
+
+                const spanTaskText = document.createElement('span');
+                spanTaskText.textContent = taskText;
+                spanTaskText.classList.add('task-text');
+                li.appendChild(spanTaskText);
+
+                const spanButtons = document.createElement('span');
+                const editButton = document.createElement('span');
+                editButton.classList.add('edit-task');
+                editButton.innerHTML = '&#9998;'; // Edit icon
+
+                const removeButton = document.createElement('span');
+                removeButton.classList.add('remove-task');
+                removeButton.innerHTML = '&#10006;'; // X icon
+
+                spanButtons.appendChild(editButton);
+                spanButtons.appendChild(removeButton);
+
+                li.appendChild(spanButtons);
+                taskList.appendChild(li);
+            }
         });
     </script>
 </body>
