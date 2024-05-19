@@ -50,17 +50,28 @@
                 if (taskText !== '') {
                     addTask(taskText);
                     taskInput.value = '';
+
+                    // Logging when item is added
+                    console.log('Item added:', taskText);
                 }
             });
 
             clearTasksBtn.addEventListener('click', function () {
                 taskList.innerHTML = ''; // Clear all list items
+
+                // Logging when all items are cleared
+                console.log('All items cleared.');
             });
 
             // Event delegation for task list actions
             taskList.addEventListener('click', function (event) {
                 if (event.target.classList.contains('remove-task')) {
+                    const removedTask = event.target.parentElement.parentElement.textContent.trim();
                     event.target.parentElement.parentElement.remove(); // Remove parent li element
+
+                    // Logging when item is removed
+                    strremovedTask = removedTask.replace(/&#10006;|&#9998;/g, '');
+                    console.log('Item removed:', strremovedTask);
                 } else if (event.target.classList.contains('edit-task')) {
                     const li = event.target.parentElement.parentElement;
                     const spanTaskText = li.querySelector('.task-text');
@@ -78,26 +89,41 @@
 
                     // Handle saving the edited task
                     input.addEventListener('blur', function () {
-                        saveEdit(input, li);
+                        const updatedTaskText = input.value.trim();
+                        saveEdit(updatedTaskText, li, originalText);
                     });
 
                     input.addEventListener('keypress', function (event) {
                         if (event.key === 'Enter') {
-                            saveEdit(input, li);
+                            const updatedTaskText = input.value.trim();
+                            saveEdit(updatedTaskText, li, originalText);
                         }
                     });
                 }
             });
 
-            function saveEdit(input, li) {
-                const updatedTaskText = input.value.trim();
-                const spanTaskText = document.createElement('span');
-                spanTaskText.textContent = updatedTaskText;
-                spanTaskText.classList.add('task-text');
+            function saveEdit(updatedTaskText, li, originalText) {
+                const input = li.querySelector('input');
+                if (input && input.parentNode === li) {
+                    // Replace special characters in task text strings
+                    const stroriginalText = originalText.replace(/&#10006;|&#9998;/g, '');
+                    const strupdatedTaskText = updatedTaskText.replace(/&#10006;|&#9998;/g, '');
 
-                // Replace input with span
-                li.replaceChild(spanTaskText, input);
+                    const spanTaskText = document.createElement('span');
+                    spanTaskText.textContent = strupdatedTaskText;
+                    spanTaskText.classList.add('task-text');
+
+                    // Replace input with span
+                    li.replaceChild(spanTaskText, input);
+
+                    // Logging when item is edited
+                    console.log('Item edited:', stroriginalText, '=>', strupdatedTaskText);
+                } else {
+                    console.error('Failed to save edit: Input element is not found or is not a child of its parent.');
+                }
             }
+
+
 
             function addTask(taskText) {
                 const li = document.createElement('li');
@@ -122,8 +148,11 @@
 
                 li.appendChild(spanButtons);
                 taskList.appendChild(li);
+
+
             }
         });
+
     </script>
 </body>
 
