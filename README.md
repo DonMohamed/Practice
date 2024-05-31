@@ -5,7 +5,7 @@
 ### Step 1: Clone the Repository
 
 ```sh
-https://github.com/DonMohamed/Practise.git
+https://github.com/DonMohamed/Practice.git
 
 ```
 
