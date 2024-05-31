@@ -1,4 +1,4 @@
-# To-Do-List Application in Python using Falsk
+# To-Do-List Application in Python using Flask
 
 ## Setting Up the Application
 
