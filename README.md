@@ -38,5 +38,23 @@ pytest              --> for Testing
 
 ```bash
 docker build -t practice .
-docker run --rm -it practice
+docker run --rm -it -p8080:8080 practice
 ``` 
+## Pushing Docker to Docker Hub Registry
+1. Tage my build App 
+> note that `mredaammer/practice`
+1.  `mredaammer` is the user of DockerHub
+2.  `practice`   is the repository on DockerHub
+```bash
+docker tag practice:latest mredaammer/practice
+```
+2. Push my Docker To DockerHub
+```bash
+docker login
+docker push mredaammer/practice --all-tags
+``` 
+3. Pull And Run from DockerHub Repositories 
+```bash
+docker pull mredaammer/practice
+docker run -p8080:8080 myusername/myapp
+```
