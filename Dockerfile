@@ -6,9 +6,12 @@ WORKDIR /app
 
 COPY . .
 
-RUN  pip3 install --no-cache-dir -r requirments.txt
+RUN  pip3 install --no-cache-dir -r requirments.txt \
+     && addgroup -S app && adduser -S app -G app \
+     && chown -R app:app . 
 
 EXPOSE 8080
+USER app
 
 CMD ["python3", "toDoList.py"]
         
