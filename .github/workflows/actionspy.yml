@@ -25,6 +25,7 @@ jobs:
         run: |
           pip install -r requirements.txt
           pip install pytest
+          pip install webdriver-manager
       - name: Running tests
         run: |
           pytest
