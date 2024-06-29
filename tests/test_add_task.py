@@ -8,7 +8,11 @@ import time
 
 @pytest.fixture(scope="class")
 def setup(request):
-    driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
+    options = webdriver.ChromeOptions()
+    options.add_argument('--headless')  # Run Chrome in headless mode
+    options.add_argument('--disable-dev-shm-usage')  # Disable shared memory usage
+    options.add_argument('--no-sandbox')  # Disable sandbox mode (not secure, but for testing purposes)
+    driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()),options=options)
     request.cls.driver = driver
     yield
     driver.quit()
