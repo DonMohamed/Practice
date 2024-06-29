@@ -1,0 +1,59 @@
+
+name: PyTest
+
+on: 
+    push:
+        branches:
+            - main
+        paths:
+            - '**/*.py' 
+            - 'templates/**'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v3
+        with:
+          python-version: 3.12
+          cache: 'pip'
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+          pip install pytest
+      - name: Running tests
+        run: |
+          pytest
+  build-and-push:
+    runs-on: ubuntu-latest
+    needs: test
+    if: success()    
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Extract metadata for Docker
+        id: meta
+        uses: docker/metadata-action@v4
+        with:
+          images: mredaammer/practice
+
+      - name: Tag With Git Hub Commit
+        if: startsWith(github.ref, 'refs/tags/')
+        run: |
+          docker tag mredaammer/practice:latest mredaammer/practice:${GITHUB_REF#refs/tags/}
+      - name: Build and  image with tag
+        run: docker push mredaammer/practice --all-tags  
+       
+                 
