@@ -28,8 +28,8 @@ jobs:
           pip install webdriver-manager
       - name: Start Application Server
         run: |
-            docker build -t practice .
-            docker run --rm -it -p8080:8080 practice 
+           docker build -t practice .
+           docker run --rm -d -p 8080:8080 practice
       - name: Running tests
         run: |
           pytest
