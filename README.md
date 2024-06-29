@@ -19,7 +19,7 @@ https://github.com/DonMohamed/Practice.git
 ### Step 3: Install Requirements
 
 ```bash
-pip install -r requirments.txt
+pip install -r requirements.txt
 ```
 
 ### Step 4: Run App and Tests
