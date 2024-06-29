@@ -30,6 +30,7 @@ jobs:
         run: |
            docker build -t practice .
            docker run --rm -d -p 8080:8080 practice
+           sleep 10
       - name: Running tests
         run: |
           pytest
