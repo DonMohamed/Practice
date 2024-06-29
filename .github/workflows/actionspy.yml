@@ -8,7 +8,7 @@ on:
         paths:
             - '**/*.py' 
             - 'templates/**'
-            - '**/requirments.txt'
+            - 'requirments.txt'
             - '.github/workflows/actionspy.yml'
 
 jobs:
