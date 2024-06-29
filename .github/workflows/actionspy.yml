@@ -8,7 +8,6 @@ on:
         paths:
             - '**/*.py' 
             - 'templates/**'
-            - '**/requirements.txt'
             - '.github/workflows/actionspy.yml'
 
 jobs:
@@ -23,7 +22,7 @@ jobs:
           cache: 'pip'
       - name: Install dependencies
         run: |
-          pip install -r requirements.txt
+          pip install -r requirments.txt
           pip install pytest
       - name: Running tests
         run: |
