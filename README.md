@@ -1,3 +1,5 @@
+![Tests](https://github.com/DonMohamed/Practice/actions/workflows/actionspy.yml/badge.svg)
+
 # To-Do-List Application in Python using Flask
 
 ## Setting Up the Application

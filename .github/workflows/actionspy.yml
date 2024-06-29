@@ -48,19 +48,16 @@ jobs:
       - name: Log in to Docker Hub
         uses: docker/login-action@v2
         with:
-          username: ${{ secrets.DOCKER_USERNAME }}
+          username: mredaammer
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Extract metadata for Docker
-        id: meta
-        uses: docker/metadata-action@v4
-        with:
-          images: mredaammer/practice
-
+      - name: Build Image
+        run: docker build -t mredaammer/practice .
+           
       - name: Tag With Git Hub Commit
         if: startsWith(github.ref, 'refs/tags/')
-        run: |
-          docker tag mredaammer/practice:latest mredaammer/practice:${GITHUB_REF#refs/tags/}
+        run: docker tag mredaammer/practice:latest mredaammer/practice:${GITHUB_REF#refs/tags/}
+      
       - name: Build and  image with tag
         run: docker push mredaammer/practice --all-tags  
        
