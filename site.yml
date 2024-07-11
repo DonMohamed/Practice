@@ -1,0 +1,20 @@
+---
+- name: Deploy Application Container from DockerHub
+  hosts: localhost
+  #become: true
+  vars:
+    ansible_python_interpreter: /usr/bin/python3
+  tasks:
+    - name: Pull Docker image from DockerHub
+      docker_image:
+        name: mredaammer/practice:latest
+        source: pull
+        state: present
+
+    - name: Run Docker container from the pulled image
+      docker_container:
+        name: my_practice_container
+        image: mredaammer/practice:latest
+        state: started
+        ports:
+          - "8080:8080"

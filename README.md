@@ -58,5 +58,27 @@ docker push mredaammer/practice --all-tags
 3. Pull And Run from DockerHub Repositories 
 ```bash
 docker pull mredaammer/practice
-docker run -p8080:8080 myusername/myapp
+docker run -p8080:8080 mredaammer/practice
 ```
+## Using Github Actions 
+ > writing flow using yml language 
+ 1. the yaml file should be in path of `.github/workflows/file.yml`
+
+ 2. check the flows which is written in this path `.github/workflows/actionspy.yml`
+
+ ## Using Ansible
+ > For provsiong and configuring my machine or remote onews
+
+ 1. `site.yml` file for  pull image on my machine and run container from image on my machine 
+ 
+ 2. `stop_container_remove_Image.yml` file For stop and remove container and also remove image 
+
+ 3. this command for run ansible playbook
+  - note `ansible-playbook` name of file you need to run
+  - note `-vvv` provide more detailed output, helping you diagnose where the issue lies:
+  
+ ```bash
+  ansible-playbook -vvv site.yml
+  ```
+
+

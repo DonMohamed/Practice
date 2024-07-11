@@ -1,0 +1,21 @@
+---
+- name: Stop and remove Docker container
+  hosts: localhost
+  #become: true
+  vars:
+    ansible_python_interpreter: /usr/bin/python3  # Replace with your Python path
+  tasks:
+    - name: Stop Docker container
+      docker_container:
+        name: my_practice_container
+        state: stopped
+
+    - name: Remove Docker container
+      docker_container:
+        name: my_practice_container
+        state: absent
+
+    - name: Remove Docker image
+      docker_image:
+        name: mredaammer/practice:latest
+        state: absent    
