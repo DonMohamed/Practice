@@ -78,7 +78,9 @@ docker run -p8080:8080 mredaammer/practice
   - note `-vvv` provide more detailed output, helping you diagnose where the issue lies:
   
  ```bash
-  ansible-playbook -vvv site.yml
+  ansible-playbook -vvv main.yml
+  ansible-playbook -i hosts.ini main.yml -vvv
+
   ```
 
 

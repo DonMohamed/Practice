@@ -1,9 +1,12 @@
 ---
-- name: Deploy Application Container from DockerHub
-  hosts: localhost
-  #become: true
-  vars:
-    ansible_python_interpreter: /usr/bin/python3
+- name: Install docker on all app nodes
+  hosts: web
+  become: true
+  roles:
+    - docker
+
+- name: Pull Docker from Docker Hub and Run on the EC2
+  hosts: web
   tasks:
     - name: Pull Docker image from DockerHub
       docker_image:
@@ -11,10 +14,11 @@
         source: pull
         state: present
 
-    - name: Run Docker container from the pulled image
+    - name: Run the  container From pulled image
       docker_container:
-        name: my_practice_container
+        name: app
         image: mredaammer/practice:latest
         state: started
         ports:
-          - "8080:8080"
+          - "80:8080"
+
