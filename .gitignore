@@ -2,7 +2,7 @@
 __pycache__/
 *.py[cod]
 *$py.class
-.terraform/providers/
+.terraform/.terraform/providers/
 # C extensions
 *.so
 __pycache__/
