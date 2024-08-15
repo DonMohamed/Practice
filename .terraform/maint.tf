@@ -17,3 +17,8 @@ resource "aws_instance" "app" {
 output "instance_ips" {
   value = aws_instance.app[*].public_ip
 }
+
+resource "local_file" "inventory" {
+  content  = templatefile("${path.module}/inventory.tpl", { instance_ips = aws_instance.app[*].public_ip })
+  filename = "${path.module}/inventory"
+}

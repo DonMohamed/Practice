@@ -52,7 +52,7 @@ docker tag practice:latest mredaammer/practice
 ```
 2. Push my Docker To DockerHub
 ```bash
-docker login
+echo $PASSWORD | docker login -u mredaammer --password-stdin
 docker push mredaammer/practice --all-tags
 ``` 
 3. Pull And Run from DockerHub Repositories 
@@ -67,20 +67,20 @@ docker run -p8080:8080 mredaammer/practice
  2. check the flows which is written in this path `.github/workflows/actionspy.yml`
 
  ## Using Ansible
- > For provsiong and configuring my machine or remote onews
-
- 1. `site.yml` file for  pull image on my machine and run container from image on my machine 
- 
+ > For configuring existing infrastructure local or remote 
+ 1. `main.yml` file for  pull image from docker hub on EC2 instances and run container from image
  2. `stop_container_remove_Image.yml` file For stop and remove container and also remove image 
 
  3. this command for run ansible playbook
   - note `ansible-playbook` name of file you need to run
-  - note `-vvv` provide more detailed output, helping you diagnose where the issue lies:
+  - note `-vvv` provide more detailed output, helping you diagnose where the issue lies
+  - note `-i hosts.ini` for inventory file which have EC2 instance IPs
   
  ```bash
   ansible-playbook -vvv main.yml
   ansible-playbook -i hosts.ini main.yml -vvv
 
   ```
-
+  ## Using Terraform 
+  > Is used For provision and manage infrastructure across various cloud providers and on-premises environments.
 
