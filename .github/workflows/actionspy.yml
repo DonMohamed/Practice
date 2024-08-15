@@ -26,9 +26,7 @@ jobs:
           pip install -r requirements.txt
           pip install pytest
           pip install webdriver-manager
-      - name: Ensure Chromedriver has execute permissions
-        run: |
-          sudo chmod +x /home/runner/.wdm/drivers/chromedriver/linux64/127.0.6533.119/chromedriver-linux64/chromedriver    
+    
       - name: Start Application Server
         run: |
            docker build -t practice .
