@@ -67,7 +67,7 @@ docker run -p8080:8080 mredaammer/practice
  2. check the flows which is written in this path `.github/workflows/actionspy.yml`
 
  ## Using Ansible
- > For configuring existing infrastructure local or remote 
+ > For configuring existing infrastructure local or remote which sync desiered state with actual sate
  1. `main.yml` file for  pull image from docker hub on EC2 instances and run container from image
  2. `stop_container_remove_Image.yml` file For stop and remove container and also remove image 
 
