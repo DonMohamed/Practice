@@ -24,6 +24,7 @@ class TestAddTask:
 
     def test_add_task(self):
         self.driver.get("http://127.0.0.1:5000/") 
+        self.driver.implicitly_wait(10) 
         task_input = self.driver.find_element(By.ID, 'taskInput')
         add_task_btn = self.driver.find_element(By.ID, 'addTaskBtn')
 
