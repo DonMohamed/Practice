@@ -83,4 +83,13 @@ docker run -p8080:8080 mredaammer/practice
   ```
   ## Using Terraform 
   > Is used For provision and manage infrastructure across various cloud providers and on-premises environments.
+  1. this commands for run terraform file 
+   
+   ```bash
+   cd ./.terraform
+   terraform init
+   terraform apply
+   terraform Destroy 
+   ```
+   - note `terraform Destroy` for destroy provisined insatnces 
 
