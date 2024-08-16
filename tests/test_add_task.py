@@ -13,6 +13,7 @@ def setup(request):
     options.add_argument('--disable-dev-shm-usage')  # Disable shared memory usage
     options.add_argument('--no-sandbox')  # Disable sandbox mode (not secure, but for testing purposes)
     #driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()),options=options)
+    #service = Service(ChromeDriverManager().install())
     service = Service("/usr/bin/chromedriver")
     driver = webdriver.Chrome(service=service, options=options)
     request.cls.driver = driver
