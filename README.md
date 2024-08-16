@@ -58,6 +58,7 @@ docker tag practice:latest mredaammer/practice
 2. Push my Docker To DockerHub
 ```bash
 echo $PASSWORD | docker login -u mredaammer --password-stdin
+
 docker push mredaammer/practice --all-tags
 ``` 
 3. Pull And Run from DockerHub Repositories 
@@ -66,7 +67,7 @@ docker pull mredaammer/practice
 docker run -p8080:8080 mredaammer/practice
 ```
 ## Using Github Actions 
- > writing flow using yml language for createing CI/CD Pipline
+ > writing flow using yml language for createing CI/CD Pipline to test ,build and push it to docker hub registery 
  1. the yaml file should be in path of `.github/workflows/file.yml`
 
  2. check the flows which is written in this path `.github/workflows/actionspy.yml`
@@ -145,7 +146,7 @@ docker run -p8080:8080 mredaammer/practice
 ```sh
 helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
 
-helm install monitoring prometheus-community/kube-prometheus-stack -n monitoring
+helm install monitoring prometheus-community/kube-prometheus-stack -n monitoring --create-namespace
 
 minikube addons enable metrics-server
 ```
