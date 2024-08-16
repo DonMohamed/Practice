@@ -148,7 +148,17 @@
 
                 li.appendChild(spanButtons);
                 taskList.appendChild(li);
-
+                // Call Python API to log the task
+    fetch('/log_task', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ taskText: taskText }),
+    })
+    .then(response => response.json())
+    .then(data => console.log(data.message))
+    .catch(error => console.error('Error logging task:', error));
 
             }
         });

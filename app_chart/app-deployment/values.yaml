@@ -1,0 +1,29 @@
+# Default values for the Helm Chart
+---
+
+# Number of replicas required
+replicaCount: 3
+
+# Application image and tag
+image: mredaammer/practice:latest
+
+# Port exposed by application container
+containerPort: 5000
+
+# Port to expose by the created service
+servicePort: 80
+
+# Resource requests and limits for deployment
+cpuRequest: 10m
+cpuLimit: 5000m
+memoryRequest: 128Mi
+memoryLimit: 1Gi
+
+
+# Configurations for stateful apps
+stateful:
+  # When enabled, a StatefulSet will be applied instead of a Deployment.
+  enabled: false
+
+  # Storage requested by the PVC
+  storageRequest: 1Gi

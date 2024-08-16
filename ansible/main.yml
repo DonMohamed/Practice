@@ -20,5 +20,5 @@
         image: mredaammer/practice:latest
         state: started
         ports:
-          - "80:8080"
+          - "8080:5000"
 

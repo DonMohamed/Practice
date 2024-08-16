@@ -25,10 +25,15 @@ pip install -r requirements.txt
 ```
 
 ### Step 4: Run App and Tests
-
+- for running the App
 ```bash
-python3 toDoList.py --> for running the App
-pytest              --> for Testing
+python3 toDoList.py 
+          
+```
+- for Testing
+```bash
+pytest  
+
 ```
 
 ----------------------------------------
@@ -61,7 +66,7 @@ docker pull mredaammer/practice
 docker run -p8080:8080 mredaammer/practice
 ```
 ## Using Github Actions 
- > writing flow using yml language 
+ > writing flow using yml language for createing CI/CD Pipline
  1. the yaml file should be in path of `.github/workflows/file.yml`
 
  2. check the flows which is written in this path `.github/workflows/actionspy.yml`
@@ -92,4 +97,61 @@ docker run -p8080:8080 mredaammer/practice
    terraform Destroy 
    ```
    - note `terraform Destroy` for destroy provisined insatnces 
+
+  ## using Kubernetes 
+  > Is used for  automating the deployment, scaling, and management of containerized applications.  
+  1. Prerequisites
+        - `Minikube`: Ensure Minikube is installed and running.
+        - `kubectl`: Ensure kubectl is installed and configured to         interact with your Minikube cluster.
+  2. note `fileManifest.ymal` it can be one of this files
+        - `Namespace`: To organize your resources.
+        - `Deployment`: To define the application's deployment.
+        - `Service`: To expose your deployment internally.
+        - `Ingress`: To expose your service externally.
+        - `Roles and RoleBindings`: To manage permissions.
+
+   
+   ```bash
+   minikube start
+   kubectl apply -f fileManifest.yaml
+   kubectl delete service/my-app-service
+   kubectl delete deployment.apps/my-app-deployment
+
+   ```
+   - to make sure ngress addon is enabled into Minikube
+   ```bash
+   minikube addons enable ingress
+
+   ```
+   - to Check status
+   ```bash
+   kubectl get deployments -n my-app-namespace 
+
+   ```
+   - get runing url of app
+   ``` bash
+   minikube -n my-app-namespace service app-service --url
+   
+   ```
+## Helm
+> Is the package manager for K8s
+```sh
+ helm install my-chart app-deployment -n my-app --create-namespace
+ helm -n my-app list
+ helm uninstall my-chart -n my-app
+```
+## Monitoring
+> use helm chart to monitor k8s
+```sh
+helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+
+helm install monitoring prometheus-community/kube-prometheus-stack -n monitoring
+
+minikube addons enable metrics-server
+```
+- Access dashboards at http://localhost:3000/dashboards, default creds: admin:prom-operator , run next command before access grafana
+```sh
+kubectl port-forward svc/monitoring-grafana 3000:80 -n monitoring
+
+```
 

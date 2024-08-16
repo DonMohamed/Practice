@@ -30,3 +30,4 @@ urllib3==2.2.1
 webdriver-manager==4.0.1
 Werkzeug==3.0.3
 wsproto==1.2.0
+prometheus-flask-exporter==0.23.1
